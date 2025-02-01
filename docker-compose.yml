@@ -9,7 +9,7 @@ services:
       - mongodb_data:/data/db
     restart: always
 
-  fastapi-backend:
+ fastapi-backend:
     build:
       context: ./backend
     container_name: fastapi-backend
@@ -31,11 +31,15 @@ services:
       - GH_GRAPH_LOCATION=data/graph-cache
       - GH_DATA_LOCATION=data/europe_germany.pbf
       - GH_WEB_LISTENER_PORT=8989
+      - GRAPHHOPPER_API_KEY=${GRAPHHOPPER_API_KEY}
+
     volumes:
       - ./graphhopper_data:/data
     command: >
       sh -c "graphhopper.sh web /data/europe_germany.pbf"
 
+
 volumes:
   mongodb_data:
     driver: local
+
