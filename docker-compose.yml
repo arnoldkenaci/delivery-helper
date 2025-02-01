@@ -8,8 +8,7 @@ services:
     volumes:
       - mongodb_data:/data/db
     restart: always
-
- fastapi-backend:
+  fastapi-backend:
     build:
       context: ./backend
     container_name: fastapi-backend
@@ -38,8 +37,6 @@ services:
     command: >
       sh -c "graphhopper.sh web /data/europe_germany.pbf"
 
-
 volumes:
   mongodb_data:
     driver: local
-
