@@ -1,0 +1,41 @@
+version: "3.9"
+services:
+  mongodb:
+    image: mongo:6.0
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    restart: always
+
+  fastapi-backend:
+    build:
+      context: ./backend
+    container_name: fastapi-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    depends_on:
+      - mongodb
+
+  graphhopper:
+    image: graphhopper/graphhopper:latest
+    container_name: graphhopper
+    ports:
+      - "8989:8989"
+    environment:
+      - JAVA_OPTS=-Xmx2g
+      - GH_GRAPH_LOCATION=data/graph-cache
+      - GH_DATA_LOCATION=data/europe_germany.pbf
+      - GH_WEB_LISTENER_PORT=8989
+    volumes:
+      - ./graphhopper_data:/data
+    command: >
+      sh -c "graphhopper.sh web /data/europe_germany.pbf"
+
+volumes:
+  mongodb_data:
+    driver: local
