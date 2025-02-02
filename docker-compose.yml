@@ -1,41 +1,37 @@
-version: "3.9"
 services:
   mongodb:
-    image: mongo:6.0
+    image: mongo:5.0.31-focal
     container_name: mongodb
     ports:
       - "27017:27017"
     volumes:
       - mongodb_data:/data/db
     restart: always
-  fastapi-backend:
-    build:
-      context: ./backend
-    container_name: fastapi-backend
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./backend:/app
-    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
-    depends_on:
-      - mongodb
 
   graphhopper:
-    image: graphhopper/graphhopper:latest
+    image: israelhikingmap/graphhopper:10.0
     container_name: graphhopper
     ports:
       - "8989:8989"
     environment:
-      - JAVA_OPTS=-Xmx2g
+      - JAVA_OPTS=-Xmx4g
       - GH_GRAPH_LOCATION=data/graph-cache
-      - GH_DATA_LOCATION=data/europe_germany.pbf
+      - GH_DATA_LOCATION=data/albania-latest.osm.pbf
       - GH_WEB_LISTENER_PORT=8989
-      - GRAPHHOPPER_API_KEY=${GRAPHHOPPER_API_KEY}
 
     volumes:
-      - ./graphhopper_data:/data
+      - ./graphhopper:/data
     command: >
-      sh -c "graphhopper.sh web /data/europe_germany.pbf"
+      sh -c "graphhopper.sh web /data/albania-latest.osm.pbf"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8989/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          memory: 6g
 
 volumes:
   mongodb_data:
