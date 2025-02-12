@@ -4,7 +4,7 @@ import MapView, { Marker, Polyline } from "react-native-maps";
 import * as Location from "expo-location";
 import axios from "axios";
 
-const API_BASE_URL = "http://192.168.0.164:8000"; // Replace with your actual backend URL
+const API_BASE_URL = "http://192.168.0.169:8000"; // Replace with your actual backend URL
 
 const MapScreen = () => {
   const [userLocation, setUserLocation] = useState(null);
@@ -51,13 +51,14 @@ const MapScreen = () => {
   // Fetch shortest route from backend
   const getOptimizedRoute = async (userCoords) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/shortest-route`, {
-        start_location: {
+      const response = await axios.post(
+        `${API_BASE_URL}/routes/shortest-route`,
+        {
           latitude: userCoords.latitude,
           longitude: userCoords.longitude,
-        },
-      });
-
+        }
+      );
+      console.log(response.request.data);
       if (response.data.paths && response.data.paths.length > 0) {
         const points = response.data.paths[0].points.coordinates.map(
           (coord) => ({
