@@ -3,11 +3,11 @@ from typing import List, Optional
 
 
 class Location(BaseModel):
+    id: Optional[int] = None
     name: str
     latitude: float
     longitude: float
     address: Optional[str] = None
-    contact_name: Optional[str] = None
     contact_phone: Optional[str] = None
     priority: Optional[int] = 1  # 1 = highest priority, default is lowest
     delivery_window: Optional[List[str]] = (

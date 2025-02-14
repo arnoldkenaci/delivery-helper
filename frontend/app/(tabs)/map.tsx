@@ -4,7 +4,7 @@ import MapView, { Marker, Polyline } from "react-native-maps";
 import * as Location from "expo-location";
 import axios from "axios";
 
-const API_BASE_URL = "http://192.168.0.169:8000"; // Replace with your actual backend URL
+const API_BASE_URL = "http://192.168.18.67:8000"; // Replace with your actual backend URL
 
 const MapScreen = () => {
   const [userLocation, setUserLocation] = useState(null);
@@ -42,9 +42,9 @@ const MapScreen = () => {
       };
       setUserLocation(userLoc);
 
-      if (location) {
-        getOptimizedRoute(userLoc);
-      }
+      // if (location) {
+      //   getOptimizedRoute(userLoc);
+      // }
     })();
   }, []);
 
@@ -79,6 +79,8 @@ const MapScreen = () => {
     <View style={{ flex: 1 }}>
       <MapView
         style={{ flex: 1 }}
+        showsUserLocation={true}
+        showsMyLocationButton={true}
         initialRegion={{
           latitude: userLocation?.latitude || 39.875,
           longitude: userLocation?.longitude || 20.005,
@@ -86,15 +88,6 @@ const MapScreen = () => {
           longitudeDelta: 0.1,
         }}
       >
-        {/* User's Location Marker */}
-        {userLocation && (
-          <Marker
-            coordinate={userLocation}
-            title="You are here"
-            pinColor="blue"
-          />
-        )}
-
         {/* Mock Locations as Markers */}
         {locations.map((loc, index) => (
           <Marker
