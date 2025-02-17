@@ -1,9 +1,26 @@
 services:
+
+  fastapi:
+    build:
+      context: .
+    container_name: fastapi
+    ports:
+      - "8000:8000"
+    environment:
+      - MONGO_CONNECTION_STRING=mongodb://mongodb:27017
+      - GH_URL=http://graphhopper:8989
+    depends_on:
+      - mongodb
+      - graphhopper
+    restart: always
+
   mongodb:
     image: mongo:5.0.31-focal
     container_name: mongodb
     ports:
       - "27017:27017"
+
+      
     volumes:
       - mongodb_data:/data/db
     restart: always

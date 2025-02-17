@@ -1,12 +1,12 @@
 # Use an official lightweight Python image
-FROM python:3.10-slim
+FROM python:3.13.2-slim-bullseye
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1
 
 # Set working directory
-WORKDIR /app
+WORKDIR /backend
 
 # Copy requirements and install dependencies
 COPY requirements.txt .
