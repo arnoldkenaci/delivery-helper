@@ -1,8 +1,19 @@
 export interface Location {
-  id?: string; // Optional for new locations
-  lat: number;
-  lon: number;
+  name: string;
+  latitude: number;
+  longitude: number;
+  address?: string;
+  contact_phone?: string;
+  priority?: number; // 1 = highest priority, default is lowest
+  delivery_window?: string[]; // Example: ["08:00-12:00", "14:00-18:00"]
+  notes?: string;
 }
+
+export interface StartLocation {
+  latitude: number;
+  longitude: number;
+}
+
 
 const BASE_URL = "http://192.168.18.67:8000";
 

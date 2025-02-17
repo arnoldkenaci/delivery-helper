@@ -7,6 +7,9 @@ import { IconSymbol } from "@/components/ui/IconSymbol";
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faList } from "@fortawesome/free-solid-svg-icons";
+import { faMap } from "@fortawesome/free-solid-svg-icons";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -32,11 +35,7 @@ export default function TabLayout() {
         options={{
           title: "List",
           tabBarIcon: ({ color }) => (
-            <IconSymbol
-              size={28}
-              name="FormatListNumbered.fill"
-              color={color}
-            />
+            <FontAwesomeIcon icon={faList} size={32} color={color} />
           ),
         }}
       />
@@ -45,7 +44,8 @@ export default function TabLayout() {
         options={{
           title: "Map",
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="map.fill" color={color} />
+            <FontAwesomeIcon icon={faMap} size={32} color={color} />
+
           ),
         }}
       />
