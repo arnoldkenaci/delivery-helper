@@ -1,6 +1,6 @@
 import requests
 from fastapi import HTTPException
-from app.models.locations import StartLocation
+from app.schemas.locations import StartLocation
 
 GRAPHHOPPER_URL = "http://localhost:8989/route"
 

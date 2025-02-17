@@ -3,7 +3,6 @@ from typing import List, Optional
 
 
 class Location(BaseModel):
-    id: Optional[int] = None
     name: str
     latitude: float
     longitude: float

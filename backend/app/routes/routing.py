@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.models.locations import StartLocation
+from app.schemas.locations import StartLocation
 from app.services.routing import RoutingService
 
 router = APIRouter()

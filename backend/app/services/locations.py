@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 from fastapi import HTTPException
-from app.models.locations import Location
+from app.schemas.locations import Location
 
 
 class LocationService:

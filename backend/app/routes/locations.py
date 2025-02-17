@@ -1,10 +1,10 @@
 from fastapi import APIRouter
-from app.models.locations import Location
+from app.schemas.locations import Location
 from app.services.locations import LocationService
 
 router = APIRouter()
 location_service = LocationService()
-
+    
 
 @router.get("/")
 def get_locations():
